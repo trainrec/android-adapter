@@ -1,2 +1,2 @@
-# android-presenter
-Presenter for the android-ui
+# android-adapter
+Adapter for the android-ui
