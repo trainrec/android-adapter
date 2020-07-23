@@ -1,6 +1,7 @@
 package no.trainrec.android.ui
 
-import no.trainrec.android.framework.Storage
+import no.trainrec.storage.CSV
+import no.trainrec.storage.FileIO
 
 import no.trainrec.core.use_case.EntryAdder
 import no.trainrec.core.domain.ExerciseEntry
