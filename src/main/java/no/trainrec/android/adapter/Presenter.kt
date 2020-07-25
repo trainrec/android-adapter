@@ -1,16 +1,29 @@
 package no.trainrec.android.ui
 
-import no.trainrec.storage.CSV
-import no.trainrec.storage.FileIO
-
 import no.trainrec.core.use_case.EntryAdder
 import no.trainrec.core.domain.ExerciseEntry
 import no.trainrec.core.data.TrainingRecord
+import no.trainrec.storage.CSV
+import no.trainrec.storage.FileIO
+
+import java.io.File
 
 class Presenter(appFilesDir: String) {
-    private val storage = Storage(appFilesDir)
-    private val record = TrainingRecord(storage)
-    private val entryAdder = EntryAdder(record)
+    private val rec: TrainingRecord
+    private val entryAdder: EntryAdder
+
+    init {
+        val data = File(appFilesDir, "data.csv")
+        try {
+            data.createNewFile()
+        } catch(ex: Exception) {
+            ex.printStackTrace()
+        }
+        val io = FileIO(data)
+        val storage = CSV(io)
+        rec = TrainingRecord(storage)
+        entryAdder = EntryAdder(rec)
+    }
 
     fun addEntry(exerciseName: String) {
         entryAdder.addEntry(exerciseName)
