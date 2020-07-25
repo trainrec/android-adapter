@@ -6,20 +6,11 @@ import no.trainrec.core.data.TrainingRecord
 import no.trainrec.storage.CSV
 import no.trainrec.storage.FileIO
 
-import java.io.File
-
-class Presenter(appFilesDir: String) {
+class Presenter(io: FileIO) {
     private val rec: TrainingRecord
     private val entryAdder: EntryAdder
 
     init {
-        val data = File(appFilesDir, "data.csv")
-        try {
-            data.createNewFile()
-        } catch(ex: Exception) {
-            ex.printStackTrace()
-        }
-        val io = FileIO(data)
         val storage = CSV(io)
         rec = TrainingRecord(storage)
         entryAdder = EntryAdder(rec)
