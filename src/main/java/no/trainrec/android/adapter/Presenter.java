@@ -29,6 +29,7 @@ public class Presenter {
 
     public void addEntry(String exerciseName) {
         adder.addEntry(exerciseName);
+        rec.save();
     }
 
     public List<String> listEntries(){
