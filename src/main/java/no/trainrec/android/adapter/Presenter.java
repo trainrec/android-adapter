@@ -14,21 +14,29 @@ public class Presenter {
     private TrainingRecord rec;
 
     public Presenter(FileIO io) {
-        CSV storage = CSV(io);
-        rec = TrainingRecord(storage);
-        adder = EntryAdder(rec);
+        CSV storage = new CSV(io);
+        rec = new TrainingRecord(storage);
+        adder = new EntryAdder(rec);
+    }
+
+    public void setEntryAdder(EntryAdder newAdder){
+        adder = newAdder;
+    }
+
+    public void setTrainingRecord(TrainingRecord newRecord){
+        rec = newRecord;
     }
 
     public void addEntry(String exerciseName) {
         adder.addEntry(exerciseName);
     }
 
-    public void List<String> listEntries(){
-        List<String> formattedEntries = ArrayList<String>();
-        for (exerciseEntry in rec.listEntries()) {
-            String exerciseDate = exerciseEntry.getDate();
-            String exerciseName = exerciseEntry.getExercise();
-            formattedEntries.add("$exerciseDate: $exerciseName");
+    public List<String> listEntries(){
+        List<String> formattedEntries = new ArrayList<String>();
+        for (ExerciseEntry entry : rec.listEntries()) {
+            formattedEntries.add(String.format(
+                    "%s %s", entry.getDate(), entry.getExercise()
+                    ));
         }
         return formattedEntries;
     }
